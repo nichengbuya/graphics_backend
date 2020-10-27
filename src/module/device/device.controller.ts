@@ -10,7 +10,7 @@ export class DeviceController {
     }
 
     @Get('getdevicelist')
-    getDeviceList(@Query(){id}){
-        return this.deviceService.getDeviceList(id);
+    getDeviceList(@Query(){}){
+        return this.deviceService.getDeviceList();
     }
 }
