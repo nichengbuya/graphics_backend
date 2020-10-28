@@ -6,5 +6,7 @@ export declare class DeviceController {
         id: number;
         value: string;
     }[];
-    getDeviceList({}: {}): Promise<any>;
+    getDeviceList({ type }: {
+        type: any;
+    }): Promise<any>;
 }

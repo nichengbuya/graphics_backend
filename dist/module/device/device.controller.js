@@ -22,8 +22,8 @@ let DeviceController = class DeviceController {
     fetch() {
         return this.deviceService.getDeviceType();
     }
-    getDeviceList({}) {
-        return this.deviceService.getDeviceList();
+    getDeviceList({ type }) {
+        return this.deviceService.getDeviceList(type);
     }
 };
 __decorate([

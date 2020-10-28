@@ -8,5 +8,5 @@ export declare class DeviceService {
         value: string;
     }[];
     initDeviceList(): Promise<void>;
-    getDeviceList(): Promise<any>;
+    getDeviceList(type: any): Promise<any>;
 }

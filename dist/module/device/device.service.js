@@ -46,17 +46,17 @@ let DeviceService = class DeviceService {
         if (fileContent) {
             const json = JSON.parse(fileContent);
             const devices = await this.deviceModel.find().exec();
-            const deviceMap = new Set(...devices);
             json.forEach(async (d) => {
-                if (!deviceMap.has(d)) {
+                const devices = await this.deviceModel.find({ name: d.name }).exec();
+                if (devices.length === 0) {
                     const createDevice = new this.deviceModel(d);
                     await createDevice.save();
                 }
             });
         }
     }
-    async getDeviceList() {
-        return await this.deviceModel.find().exec();
+    async getDeviceList(type) {
+        return await this.deviceModel.find({ type: type }).exec();
     }
 };
 DeviceService = __decorate([
