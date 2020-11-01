@@ -7,6 +7,7 @@ exports.DeviceSchema = new mongoose.Schema({
     url: String,
     img: String,
     type: String,
-    id: String
+    id: String,
+    attach: String
 });
 //# sourceMappingURL=device.schema.js.map
