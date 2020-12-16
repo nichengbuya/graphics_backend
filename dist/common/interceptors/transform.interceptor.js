@@ -14,8 +14,8 @@ let TransformInterceptor = class TransformInterceptor {
         return next.handle().pipe(operators_1.map(data => {
             return {
                 data,
-                code: 0,
-                message: '请求成功',
+                status: 200,
+                message: 'ok',
             };
         }));
     }

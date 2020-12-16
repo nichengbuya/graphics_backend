@@ -10,15 +10,15 @@ exports.DeviceModule = void 0;
 const common_1 = require("@nestjs/common");
 const device_controller_1 = require("./device.controller");
 const device_service_1 = require("./device.service");
-const database_module_1 = require("../../database/database.module");
-const device_provider_1 = require("./device.provider");
+const mongoose_1 = require("@nestjs/mongoose");
+const device_schema_1 = require("./device.schema");
 let DeviceModule = class DeviceModule {
 };
 DeviceModule = __decorate([
     common_1.Module({
-        imports: [database_module_1.DatabaseModule],
+        imports: [mongoose_1.MongooseModule.forFeature([{ name: 'device', schema: device_schema_1.DeviceSchema }])],
         controllers: [device_controller_1.DeviceController],
-        providers: [device_service_1.DeviceService, ...device_provider_1.deviceProvider]
+        providers: [device_service_1.DeviceService]
     })
 ], DeviceModule);
 exports.DeviceModule = DeviceModule;

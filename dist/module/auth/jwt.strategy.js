@@ -14,21 +14,27 @@ const passport_jwt_1 = require("passport-jwt");
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const constants_1 = require("./constants");
+const auth_service_1 = require("./auth.service");
 let JwtStrategy = class JwtStrategy extends passport_1.PassportStrategy(passport_jwt_1.Strategy) {
-    constructor() {
+    constructor(authService) {
         super({
             jwtFromRequest: passport_jwt_1.ExtractJwt.fromHeader('token'),
             ignoreExpiration: false,
             secretOrKey: constants_1.jwtConstants.secret,
         });
+        this.authService = authService;
     }
     async validate(payload) {
-        return { userId: payload.sub, username: payload.username };
+        const user = await this.authService.validateUser(payload);
+        if (!user) {
+            throw new common_1.UnauthorizedException();
+        }
+        return user;
     }
 };
 JwtStrategy = __decorate([
     common_1.Injectable(),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], JwtStrategy);
 exports.JwtStrategy = JwtStrategy;
 //# sourceMappingURL=jwt.strategy.js.map

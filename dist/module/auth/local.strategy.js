@@ -22,11 +22,6 @@ let LocalStrategy = class LocalStrategy extends passport_1.PassportStrategy(pass
     async validate(username, password) {
         console.log(username, password);
         return { username, password };
-        const user = await this.authService.validateUser(username, password);
-        if (!user) {
-            throw new common_1.HttpException({ message: 'authorized failed', error: 'please try again later.' }, common_1.HttpStatus.BAD_REQUEST);
-        }
-        return user;
     }
 };
 LocalStrategy = __decorate([

@@ -8,43 +8,37 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
+const mongoose_1 = require("@nestjs/mongoose");
+const mongoose_2 = require("mongoose");
 let AuthService = class AuthService {
-    constructor(jwtService) {
+    constructor(userModel, jwtService) {
+        this.userModel = userModel;
         this.jwtService = jwtService;
     }
-    async validateUser(username, pass) {
-        const user = { name: 'walker123', password: '123321' };
-        if (user && user.password) {
-            const { password } = user, result = __rest(user, ["password"]);
-            return result;
-        }
-        return null;
+    async createAccessToken(userId) {
+        const accessToken = this.jwtService.sign({ userId });
+        return accessToken;
     }
-    async login(user) {
-        const payload = { username: user.username, sub: user.userId };
-        return {
-            access_token: this.jwtService.sign(payload),
-        };
+    async validateUser(jwtPayload) {
+        const user = await this.userModel.findOne({ _id: jwtPayload.userId });
+        if (!user) {
+            throw new common_1.UnauthorizedException('User not found.');
+        }
+        return user;
     }
 };
 AuthService = __decorate([
     common_1.Injectable(),
-    __metadata("design:paramtypes", [jwt_1.JwtService])
+    __param(0, mongoose_1.InjectModel('user')),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        jwt_1.JwtService])
 ], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

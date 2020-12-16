@@ -8,5 +8,5 @@ export declare class DeviceController {
     }[];
     getDeviceList({ type }: {
         type: any;
-    }): Promise<any>;
+    }): Promise<import("./device.interface").Device[]>;
 }

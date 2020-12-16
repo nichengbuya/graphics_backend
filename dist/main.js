@@ -6,8 +6,10 @@ const swagger_1 = require("@nestjs/swagger");
 const path_1 = require("path");
 const http_exception_filter_1 = require("./common/filters/http-exception.filter");
 const transform_interceptor_1 = require("./common/interceptors/transform.interceptor");
+const platform_ws_1 = require("@nestjs/platform-ws");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    app.useWebSocketAdapter(new platform_ws_1.WsAdapter(app));
     app.enableCors();
     app.useGlobalFilters(new http_exception_filter_1.HttpExceptionFilter());
     app.useGlobalInterceptors(new transform_interceptor_1.TransformInterceptor());

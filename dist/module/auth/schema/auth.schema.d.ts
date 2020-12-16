@@ -1,1 +1,2 @@
-export declare const AuthSchema: any;
+import * as mongoose from 'mongoose';
+export declare const AuthSchema: mongoose.Schema<any>;

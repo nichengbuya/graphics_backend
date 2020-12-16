@@ -8,15 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
+const mongoose_1 = require("@nestjs/mongoose");
+const event_gateway_1 = require("./common/gateway/event.gateway");
 const device_module_1 = require("./module/device/device.module");
-const database_module_1 = require("./database/database.module");
+const user_module_1 = require("./module/user/user.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     common_1.Module({
         imports: [
-            database_module_1.DatabaseModule,
-            device_module_1.DeviceModule
+            mongoose_1.MongooseModule.forRoot('mongodb://localhost/nest'),
+            device_module_1.DeviceModule,
+            user_module_1.UserModule,
+            event_gateway_1.EventsGateway
         ],
     })
 ], AppModule);

@@ -3,9 +3,12 @@ import { Device } from './device.interface';
 import { Model } from 'mongoose';
 import * as fs from 'fs';
 import * as path from 'path';
+import { InjectModel } from '@nestjs/mongoose';
 @Injectable()
 export class DeviceService {
-    constructor(@Inject('DeviceModelToken') private readonly deviceModel: Model<Device>) {
+    constructor(
+        @InjectModel('device') private readonly deviceModel: Model<Device>
+    ) {
         this.initDeviceList();
     }
     getDeviceType() {
