@@ -32,7 +32,7 @@ export class UserService {
 
         const user = await this.userModel.findOne({name:loginDto.name});
         const match = await bcrypt.compare(loginDto.password,user.password)
-        if(!user || match){
+        if(!user || !match){
             throw new BadRequestException('name or password not right')
         }
         return {

@@ -2882,7 +2882,7 @@
         "affectsGlobalScope": false
       },
       "../src/module/user/user.service.ts": {
-        "version": "9867680f2cdfec40310bc0fb8afc732474ffd5dbda4eae7537c35faf8314814a",
+        "version": "da1d0d6d04bfc4bad46b343f4af486b3e228546c6ea1bfe7bb6b743390912b8a",
         "signature": "4f951447f70ae434f2a36f139217d86c76bc9c4cd603c94b3dce7a361691f1a2",
         "affectsGlobalScope": false
       },
@@ -10181,8 +10181,7 @@
       "../src/module/user/dto/login.dto.ts",
       "../src/module/user/user.controller.ts",
       "../src/module/user/user.module.ts",
-      "../src/module/user/user.schema.ts",
-      "../src/module/user/user.service.ts"
+      "../src/module/user/user.schema.ts"
     ]
   },
   "version": "3.9.7"
