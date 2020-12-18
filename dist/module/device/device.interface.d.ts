@@ -5,4 +5,5 @@ export interface Device extends Document {
     readonly img: String;
     readonly type: String;
     readonly attach: String;
+    readonly joints: Array<Number>;
 }

@@ -5,5 +5,6 @@ export const DeviceSchema = new mongoose.Schema({
     url:String,
     img:String,
     type:String,
-    attach:String
+    attach:String,
+    joints:Array
 });
