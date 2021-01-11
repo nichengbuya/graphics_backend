@@ -19,7 +19,7 @@ let DeviceController = class DeviceController {
     constructor(deviceService) {
         this.deviceService = deviceService;
     }
-    fetch() {
+    getDeviceType() {
         return this.deviceService.getDeviceType();
     }
     getDeviceList({ type }) {
@@ -31,7 +31,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], DeviceController.prototype, "fetch", null);
+], DeviceController.prototype, "getDeviceType", null);
 __decorate([
     common_1.Get('getdevicelist'),
     __param(0, common_1.Query()),

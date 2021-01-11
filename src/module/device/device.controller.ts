@@ -5,7 +5,7 @@ import { DeviceService } from './device.service';
 export class DeviceController {
     constructor(private readonly deviceService:DeviceService){}
     @Get('getdevicetype')
-    fetch(){
+    getDeviceType(){
         return this.deviceService.getDeviceType();
     }
 
