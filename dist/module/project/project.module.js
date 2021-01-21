@@ -16,7 +16,7 @@ let ProjectModule = class ProjectModule {
 };
 ProjectModule = __decorate([
     common_1.Module({
-        imports: [mongoose_1.MongooseModule.forFeature([{ name: 'project', schema: project_schema_1.ProjectSchema }])],
+        imports: [mongoose_1.MongooseModule.forFeature([{ name: 'project', schema: project_schema_1.ProjectSchema }, { name: 'object', schema: project_schema_1.ObjectSchema }])],
         controllers: [project_controller_1.ProjectController],
         providers: [project_service_1.ProjectService]
     })

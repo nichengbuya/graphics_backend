@@ -17,8 +17,9 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 let ProjectService = class ProjectService {
-    constructor(projectModel) {
+    constructor(projectModel, objectModel) {
         this.projectModel = projectModel;
+        this.objectModel = objectModel;
     }
     async getAllProject() {
         return await this.projectModel.find().exec();
@@ -40,13 +41,37 @@ let ProjectService = class ProjectService {
         return 'ok';
     }
     async updateProject(msg) {
-        return 'a';
+        const project = await this.projectModel.findOne({ _id: msg.projectId });
+        if (!project) {
+            throw new common_1.BadRequestException('wrong');
+        }
+        project.objects = msg.objects.map(i => i.uuid);
+        project.save();
+        for (let o of msg.objects) {
+            let obj = await this.objectModel.findOne({ id: o.id });
+            if (obj) {
+                Object.assign(obj, o);
+                obj.save();
+            }
+            else {
+                const newObj = new this.objectModel(msg);
+                Object.assign(newObj, o);
+                newObj.save();
+            }
+        }
+        return 'save success';
+    }
+    async getObjectById(msg) {
+        const objects = await this.objectModel.find({ projectId: msg.projectId });
+        return objects;
     }
 };
 ProjectService = __decorate([
     common_1.Injectable(),
     __param(0, mongoose_1.InjectModel('project')),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, mongoose_1.InjectModel('object')),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model])
 ], ProjectService);
 exports.ProjectService = ProjectService;
 //# sourceMappingURL=project.service.js.map

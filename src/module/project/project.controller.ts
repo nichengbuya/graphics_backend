@@ -22,4 +22,8 @@ export class ProjectController {
     async deleteProject(@Body() msg) {
         return await this.projectService.deleteProject(msg)
     }
+    @Get('getObjectById')
+    async getObjectById(@Body() msg) {
+        return await this.projectService.getObjectById(msg);
+    }
 }

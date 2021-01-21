@@ -31,6 +31,9 @@ let ProjectController = class ProjectController {
     async deleteProject(msg) {
         return await this.projectService.deleteProject(msg);
     }
+    async getObjectById(msg) {
+        return await this.projectService.getObjectById(msg);
+    }
 };
 __decorate([
     common_1.Get('getAllProject'),
@@ -59,6 +62,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "deleteProject", null);
+__decorate([
+    common_1.Get('getObjectById'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ProjectController.prototype, "getObjectById", null);
 ProjectController = __decorate([
     common_1.Controller('project'),
     __metadata("design:paramtypes", [project_service_1.ProjectService])

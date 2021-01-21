@@ -6,4 +6,5 @@ export declare class ProjectController {
     createProject(msg: any): Promise<import("./project.interface").Project>;
     updateProject(msg: any): Promise<string>;
     deleteProject(msg: any): Promise<string>;
+    getObjectById(msg: any): Promise<import("./project.interface").Object[]>;
 }

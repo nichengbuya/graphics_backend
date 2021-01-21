@@ -1,14 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.objectSchema = exports.ProjectSchema = void 0;
+exports.ObjectSchema = exports.ProjectSchema = void 0;
 const mongoose = require("mongoose");
 exports.ProjectSchema = new mongoose.Schema({
     name: String,
     id: String,
     isFavirate: Boolean,
+    objects: Array,
+    applications: Array,
     lastOpenTime: Date
 });
-exports.objectSchema = new mongoose.Schema({
+exports.ObjectSchema = new mongoose.Schema({
     name: String,
     id: String,
     parent: String,
