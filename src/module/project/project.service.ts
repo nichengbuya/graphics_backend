@@ -26,7 +26,12 @@ export class ProjectService {
         }
     }
     async deleteProject(msg) {
+        const project = await this.projectModel.findOne({id: msg.id})
+        for(let i of project.objects){
+            await this.objectModel.deleteOne({id:i});
+        }
         await this.projectModel.deleteOne({ id: msg.id })
+        
         return 'ok'
     }
     async updateProject(msg: UpdateProjectDto) {
@@ -34,23 +39,32 @@ export class ProjectService {
         if (!project) {
             throw new BadRequestException('wrong')
         }
-        project.objects = msg.objects.map(i => i.uuid);
-        project.save();
-        for (let o of msg.objects) {
-            let obj = await this.objectModel.findOne({ id: o.id });
-            if (obj) {
-                Object.assign(obj, o)
-                obj.save()
-            } else {
-                const newObj = new this.objectModel(msg);
-                Object.assign(newObj, o)
-                newObj.save()
+        const preMap = new Set(project.objects);
+        const curMap = new Set(msg.objects.map(i=>i.uuid));
+        for(let o of msg.objects ){
+            let obj = await this.objectModel.findOne({uuid:o.uuid});
+            if(obj){
+                obj = Object.assign(obj,o);
+                await obj.save();
+            }else{
+                obj = new this.objectModel(o);
+                obj.projectId = msg.projectId;
+                await obj.save();
+                preMap.add(obj.uuid)
             }
         }
+        for(let o of preMap){
+            if(!curMap.has(o)){
+                await this.objectModel.deleteOne({uuid:o});
+                preMap.delete(o);
+            }
+        }
+        project.objects = Array.from(curMap);
+        await project.save();
         return 'save success';
     }
     async getObjectById(msg: GetObjectByIdDto) {
-        const objects = await this.objectModel.find({ projectId: msg.projectId });
+        const objects = await this.objectModel.find({ projectId: msg.id });
         return objects;
     }
 

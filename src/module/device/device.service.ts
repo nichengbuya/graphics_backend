@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import * as fs from 'fs';
 import * as path from 'path';
 import { InjectModel } from '@nestjs/mongoose';
+import { deviceJson } from 'src/common/data/device';
 @Injectable()
 export class DeviceService {
     constructor(
@@ -25,16 +26,16 @@ export class DeviceService {
                 id: 3,
                 value: 'geometry',
             }
-
         ]
 
         return result;
     }
     async initDeviceList() {
-        const fileName = path.join(__dirname, '../../data', 'device.json');
-        const fileContent: any = fs.readFileSync(fileName);
-        if (fileContent) {
-            const json = JSON.parse(fileContent);
+        // const fileName = path.join(__dirname, '../../common/data', 'device.json');
+        // console.log(fileName)
+        // const fileContent: any = fs.readFileSync(fileName);
+        // if (fileContent) {
+            const json = deviceJson;
             const devices = await this.deviceModel.find().exec();
             //    const deviceMap = new Set(...devices);
             json.forEach(async d => {
@@ -44,9 +45,13 @@ export class DeviceService {
                     await createDevice.save();
                 }
             });
-        }
+        // }
     }
     async getDeviceList(type) {
         return await this.deviceModel.find({ type: type }).exec();
+    }
+    async getDevice(id){
+        const device = await this.deviceModel.findOne({_id:id})
+        return device;
     }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './project.interface';
 @Controller('project')
@@ -23,7 +23,7 @@ export class ProjectController {
         return await this.projectService.deleteProject(msg)
     }
     @Get('getObjectById')
-    async getObjectById(@Body() msg) {
+    async getObjectById(@Query() msg) {
         return await this.projectService.getObjectById(msg);
     }
 }

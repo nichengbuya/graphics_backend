@@ -10,6 +10,7 @@ export interface Object extends Document{
     parent:String,
     matrix:Array<number>,
     projectId:String,
+    deviceId:String,
     uuid:String
 }
 export class CreateProjectDto{
@@ -20,5 +21,5 @@ export class UpdateProjectDto{
     objects:Array<Object>;
 }
 export class GetObjectByIdDto{
-    projectId:string;
+    id:string;
 }

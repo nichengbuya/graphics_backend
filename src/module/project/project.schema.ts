@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import { ObjectId } from 'mongodb';
 
 export const ProjectSchema = new mongoose.Schema({
     name:String,
@@ -6,6 +7,7 @@ export const ProjectSchema = new mongoose.Schema({
     isFavirate:Boolean,
     objects:Array,
     applications:Array,
+    img:String,
     lastOpenTime:Date
 })
 export const ObjectSchema = new mongoose.Schema({
@@ -13,5 +15,7 @@ export const ObjectSchema = new mongoose.Schema({
     id:String,
     parent:String,
     matrix:Array,
-    projectId:String
+    projectId:ObjectId,
+    deviceId:String,
+    uuid:String
 })
