@@ -3,7 +3,7 @@ export interface Project extends Document{
     name:String,
     objects:Array<any>,
     applications:Array<any>
-    
+    img:String;
 }
 export interface Object extends Document{
     name:String,
@@ -19,6 +19,7 @@ export class CreateProjectDto{
 export class UpdateProjectDto{
     projectId:string;
     objects:Array<Object>;
+    img:String;
 }
 export class GetObjectByIdDto{
     id:string;

@@ -60,12 +60,16 @@ export class ProjectService {
             }
         }
         project.objects = Array.from(curMap);
+        project.img = msg.img;
         await project.save();
         return 'save success';
     }
     async getObjectById(msg: GetObjectByIdDto) {
         const objects = await this.objectModel.find({ projectId: msg.id });
         return objects;
+    }
+    async uploadFile(file){
+        return 'success'
     }
 
 }
