@@ -2,11 +2,12 @@ import { join } from 'path';
 import { diskStorage } from 'multer';
 
 export default {
-  root: join(__dirname, '../uploads'),
+  root: join(process.cwd(), `public/project`),
   storage: diskStorage({
-    destination: join(__dirname, `../uploads/projects`),
+    destination: join(process.cwd(), `public/project`),
     filename: (req, file, cb) => {
-      const filename = `${req.id}.${file.mimetype.split('/')[1]}`;
+      // const filename = `${req.id}.${file.mimetype.split('/')[1]}`;
+      const filename = file.originalname;
       return cb(null, filename);
     },
   }),

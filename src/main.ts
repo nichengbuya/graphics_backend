@@ -16,6 +16,9 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '../public/', 'static'), {
     prefix: '/static/', 
   });
+  app.useStaticAssets(join(__dirname, '../public/', 'project'), {
+    prefix: '/project/', 
+  });
   const swaggerOptions = new DocumentBuilder()
     .setTitle('graphic api document')
     .setDescription('graphic api document')

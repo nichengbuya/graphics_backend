@@ -16,6 +16,8 @@ export class ProjectService {
         await this.isNameUnique(msg.name)
         const project = new this.projectModel(msg);
         await project.save();
+        project.img = `project/${project._id}.png`
+        await project.save();
         // const project = this.projectModel.find({name:msg.name}); 
         return project;
     }
@@ -60,7 +62,6 @@ export class ProjectService {
             }
         }
         project.objects = Array.from(curMap);
-        project.img = msg.img;
         await project.save();
         return 'save success';
     }
@@ -68,7 +69,7 @@ export class ProjectService {
         const objects = await this.objectModel.find({ projectId: msg.id });
         return objects;
     }
-    async uploadFile(file){
+    async uploadFile(file,msg){
         return 'success'
     }
 

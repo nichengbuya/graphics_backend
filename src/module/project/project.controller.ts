@@ -32,7 +32,7 @@ export class ProjectController {
     }
     @Post('upload')
     @UseInterceptors(FileInterceptor('file'))
-    async uploadFile(@UploadedFile() file){
-        return await this.projectService.uploadFile(file);
+    async uploadFile(@UploadedFile() file , @Body() msg) {
+        return await this.projectService.uploadFile(file,msg);
     }
 }

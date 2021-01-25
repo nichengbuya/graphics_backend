@@ -2,8 +2,8 @@ import {Document} from 'mongoose';
 export interface Project extends Document{
     name:String,
     objects:Array<any>,
-    applications:Array<any>
-    img:String;
+    applications:Array<any>,
+    img:String
 }
 export interface Object extends Document{
     name:String,
@@ -14,7 +14,8 @@ export interface Object extends Document{
     uuid:String
 }
 export class CreateProjectDto{
-    readonly name:string;
+    name:string;
+    img:string;
 }
 export class UpdateProjectDto{
     projectId:string;
