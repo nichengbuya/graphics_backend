@@ -1,9 +1,9 @@
 import {Document} from 'mongoose';
 export interface Project extends Document{
-    name:String,
+    name:string,
     objects:Array<any>,
     applications:Array<any>,
-    img:String
+    img:string
 }
 export interface Object extends Document{
     name:String,
