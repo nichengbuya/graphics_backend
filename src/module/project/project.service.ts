@@ -41,7 +41,7 @@ export class ProjectService {
             fs.unlinkSync(path);
         } 
         for(let i of project.objects){
-            await this.objectModel.deleteOne({id:i});
+            await this.objectModel.deleteOne({ uuid:i});
         }
         await this.projectModel.deleteOne({ id: msg.id })
         return 'ok'
