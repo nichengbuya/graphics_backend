@@ -6,6 +6,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { User } from './user.schema';
 import * as bcrypt from 'bcrypt'
+import { makeSalt, encryptPassword } from 'src/common/crypt/cryptogram';
 
 @Injectable()
 export class UserService {
@@ -16,28 +17,29 @@ export class UserService {
     }
     async create(createUserDto:CreateUserDto){
         const user = new this.userModel(createUserDto);
-        await this.isNameUnique(user.name)
+        await this.isNameUnique(user.username)
+        user.salt = makeSalt();
+        user.password = encryptPassword(createUserDto.password, user.salt); 
         await user.save();
         return {
-            user:user.name
+            user:user.username
         }
     }
     async isNameUnique(name:string){
-        const user =await this.userModel.findOne({name:name})
+        const user =await this.userModel.findOne({username:name})
         if(user){
             throw new BadRequestException('name has exist')
         }
     }
     async login(loginDto:LoginDto){
-
-        const user = await this.userModel.findOne({name:loginDto.name});
-        const match = await bcrypt.compare(loginDto.password,user.password)
-        if(!user || !match){
+        const user = await this.userModel.findOne({username:loginDto.username});
+        const match = await this.authService.validateUser(loginDto.username,loginDto.password)
+        if( !user || !match){
             throw new BadRequestException('name or password not right')
         }
+
         return {
-            name: user.name,
-            accessToken: await this.authService.createAccessToken(user._id)
+            accessToken: await this.authService.createAccessToken(user)
         }
 
     }
