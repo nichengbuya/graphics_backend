@@ -30,7 +30,7 @@ export class ProjectController {
     async getObjectById(@Query() msg) {
         return await this.projectService.getObjectById(msg);
     }
-    @Post('upload')
+    @Post('uploadScreenCapture')
     @UseInterceptors(FileInterceptor('file'))
     async uploadFile(@UploadedFile() file , @Body() msg) {
         return await this.projectService.uploadFile(file,msg);
